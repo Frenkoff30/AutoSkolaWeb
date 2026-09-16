@@ -1,0 +1,486 @@
+<!-- {"title": "Autoškola Zavřel Hlinsko | Řidičák rychle, snadno a bezpečně", "description": "Autoškola Zavřel v Hlinsku. Řidičské průkazy skupin A, B, C a D, kondiční jízdy, školení řidičů, vrácení řidičáku i rekvalifikace. Individuální výcvik a jízdy sedm dní v týdnu.", "theme": "dark", "head_extra": "<script src=\"assets/js/road.js\" defer></script><script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"DrivingSchool\",\"name\":\"Autoškola Zavřel\",\"url\":\"https://www.ridicak.info/\",\"telephone\":\"+420775999775\",\"email\":\"autoskolahlinsko@gmail.com\",\"image\":\"https://www.ridicak.info/assets/img/og.jpg\",\"address\":{\"@type\":\"PostalAddress\",\"streetAddress\":\"Rataje 1635\",\"addressLocality\":\"Hlinsko\",\"postalCode\":\"539 01\",\"addressCountry\":\"CZ\"},\"geo\":{\"@type\":\"GeoCoordinates\",\"latitude\":49.7616762,\"longitude\":15.921653}}</script>"} -->
+
+<!-- HERO: pohled z místa řidiče -->
+<section class="hero" data-tone="dark" data-hero>
+  <canvas class="hero__road" data-road aria-hidden="true"></canvas>
+  <div class="hero__shade" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__copy" data-hero-copy>
+      <h1 class="hero__title display" aria-label="Rychle. Snadno. Bezpečně.">
+        <span class="line" style="--i:0" aria-hidden="true"><span>Rychle. Snadno.</span></span>
+        <span class="line" style="--i:1" aria-hidden="true"><span class="accent">Bezpečně.</span></span>
+      </h1>
+      <div class="hero__actions">
+        <a class="btn btn--primary btn--lg" href="#ridicaky" data-magnetic>Vybrat řidičák<span class="btn__arrow">{{icon:arrow-right}}</span></a>
+        <a class="btn btn--ghost btn--lg" href="#test" data-magnetic>Zkusit mini test</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__cockpit" aria-hidden="true">
+    <svg class="hero__frame" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <path fill="#070708" fill-rule="evenodd" d="M0 0H1000V1000H0Z M20 1000L150 112Q164 64 226 58Q500 38 774 58Q836 64 850 112L980 1000Z M0 252L70 206L5 602L0 608Z M1000 252L930 206L995 602L1000 608Z"/>
+      <path fill="#0B0B0D" fill-opacity=".6" d="M0 252L70 206L5 602L0 608Z M1000 252L930 206L995 602L1000 608Z"/>
+      <path fill="none" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="1" vector-effect="non-scaling-stroke" d="M20 1000L150 112Q164 64 226 58Q500 38 774 58Q836 64 850 112L980 1000"/>
+      <path fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 252L70 206L5 602M1000 252L930 206L995 602"/>
+      <path fill="#0F0F11" d="M176 44H436Q450 44 450 58V88Q450 102 436 102H190Q176 102 176 88Z M824 44H564Q550 44 550 58V88Q550 102 564 102H810Q824 102 824 88Z"/>
+      <path fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke" d="M176 44H436Q450 44 450 58V88Q450 102 436 102H190Q176 102 176 88Z M824 44H564Q550 44 550 58V88Q550 102 564 102H810Q824 102 824 88Z"/>
+    </svg>
+
+    <div class="dash">
+      <svg class="dash__body" viewBox="0 0 1000 300" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="dash-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C1C1E"/><stop offset=".24" stop-color="#101011"/><stop offset="1" stop-color="#050506"/></linearGradient>
+        </defs>
+        <path d="M0 74C140 38 300 20 500 20S860 38 1000 74V300H0Z" fill="url(#dash-top)"/>
+        <path d="M0 74C140 38 300 20 500 20S860 38 1000 74" fill="none" stroke="#FFFFFF" stroke-opacity=".1" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        <path d="M0 134C160 106 320 96 500 96S840 106 1000 134" fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke"/>
+        <path d="M655 150C770 146 880 154 985 172" fill="none" stroke="#FF8114" stroke-opacity=".6" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="M660 196C760 192 860 198 950 212V262C860 250 760 244 660 246Z" fill="#0A0A0B" stroke="#FFFFFF" stroke-opacity=".04" stroke-width="1" vector-effect="non-scaling-stroke"/>
+      </svg>
+
+      <svg class="dash__vent dash__vent--l" viewBox="0 0 120 52"><rect x="1" y="1" width="118" height="50" rx="14" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/><path d="M14 17H106M14 26H106M14 35H106" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/></svg>
+      <svg class="dash__vent dash__vent--r" viewBox="0 0 120 52"><rect x="1" y="1" width="118" height="50" rx="14" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/><path d="M14 17H106M14 26H106M14 35H106" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/></svg>
+
+      <div class="dash__center">
+        <div class="dash__screen"><canvas data-nav-screen></canvas></div>
+        <svg class="dash__vents" viewBox="0 0 280 56">
+          <rect x="1" y="1" width="108" height="54" rx="12" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/>
+          <rect x="171" y="1" width="108" height="54" rx="12" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/>
+          <path d="M14 18H96M14 28H96M14 38H96M184 18H266M184 28H266M184 38H266" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="140" cy="28" r="17" fill="#0D0D0F" stroke="#FFFFFF" stroke-opacity=".12"/>
+          <path d="M140 18.5 149.5 35H130.5Z" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <svg class="hero__cluster" viewBox="0 0 400 200">
+      <path d="M4 200C4 68 70 14 200 14S396 68 396 200Z" fill="#0C0C0D"/>
+      <path d="M4 200C4 68 70 14 200 14S396 68 396 200" fill="none" stroke="#FFFFFF" stroke-opacity=".07" stroke-width="1.5"/>
+      <path d="M24 200C26 88 84 40 200 40S372 88 376 200Z" fill="#060607"/>
+      <g class="gauge">
+      <circle cx="122" cy="124" r="66" fill="#09090A" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="1.5"/>
+      <path d="M73.5 152A56 56 0 1 1 170.5 152" fill="none" stroke="#F5F3EE" stroke-opacity=".55" stroke-width="7" pathLength="96" stroke-dasharray="0.9 5.1"/>
+      <path d="M161.8 101A46 46 0 0 1 161.8 147" fill="none" stroke="#FF8114" stroke-width="3" stroke-linecap="round"/>
+      <g data-needle="speed" transform="rotate(-120 122 124)"><path d="M122 130V74" stroke="#FF8114" stroke-width="3.5" stroke-linecap="round"/></g>
+      <circle cx="122" cy="124" r="8" fill="#1B1B1D" stroke="#FFFFFF" stroke-opacity=".12"/>
+      </g>
+      <g class="gauge">
+      <circle cx="278" cy="124" r="66" fill="#09090A" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="1.5"/>
+      <path d="M229.5 152A56 56 0 1 1 326.5 152" fill="none" stroke="#F5F3EE" stroke-opacity=".55" stroke-width="7" pathLength="96" stroke-dasharray="0.9 5.1"/>
+      <path d="M317.8 101A46 46 0 0 1 317.8 147" fill="none" stroke="#FF8114" stroke-width="3" stroke-linecap="round"/>
+      <g data-needle="rpm" transform="rotate(-120 278 124)"><path d="M278 130V74" stroke="#FF8114" stroke-width="3.5" stroke-linecap="round"/></g>
+      <circle cx="278" cy="124" r="8" fill="#1B1B1D" stroke="#FFFFFF" stroke-opacity=".12"/>
+      </g>
+      <rect x="186" y="54" width="28" height="28" rx="4" fill="#1C4FA6"/>
+      <path d="M195 60.5V75.5H206" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="square"/>
+      </svg>
+
+      <svg class="hero__wheel" data-wheel viewBox="0 0 400 400">
+      <defs>
+      <linearGradient id="wheel-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2A2B"/><stop offset=".5" stop-color="#161617"/><stop offset="1" stop-color="#0D0D0E"/></linearGradient>
+      <linearGradient id="wheel-hub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#242426"/><stop offset="1" stop-color="#101011"/></linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="172" fill="none" stroke="url(#wheel-rim)" stroke-width="38"/>
+      <circle cx="200" cy="200" r="191" fill="none" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="1.5"/>
+      <circle cx="200" cy="200" r="153" fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1.5"/>
+      <path d="M40 150A172 172 0 0 1 360 150" fill="none" stroke="#FFD2A8" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
+      <path d="M58 88A172 172 0 0 1 96 50" fill="none" stroke="#0A0A0B" stroke-width="40" stroke-linecap="butt" opacity=".55"/>
+      <path d="M342 88A172 172 0 0 0 304 50" fill="none" stroke="#0A0A0B" stroke-width="40" stroke-linecap="butt" opacity=".55"/>
+      <circle cx="200" cy="200" r="172" fill="none" stroke="#FFFFFF" stroke-opacity=".06" stroke-width="1" stroke-dasharray="3 5"/>
+      <rect x="192" y="9" width="16" height="38" rx="3" fill="#FF8114"/>
+      <path d="M44 186C92 182 128 176 152 174V232C128 230 92 224 42 216Z" fill="url(#wheel-hub)"/>
+      <path d="M356 186C308 182 272 176 248 174V232C272 230 308 224 358 216Z" fill="url(#wheel-hub)"/>
+      <path d="M176 258H224L216 356H184Z" fill="url(#wheel-hub)"/>
+      <rect x="138" y="146" width="124" height="116" rx="48" fill="url(#wheel-hub)" stroke="#FFFFFF" stroke-opacity=".08"/>
+      <circle cx="200" cy="204" r="19" fill="none" stroke="#FF8114" stroke-width="3"/>
+      <path d="M192.5 196.5h15l-15 15h15" fill="none" stroke="#FF8114" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ŘIDIČÁKY -->
+<section class="section" id="ridicaky" data-tone="light">
+  <div class="container">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>Řidičáky</p>
+        <h2 class="h2" data-reveal style="--d:.06s">Vyberte si, co chcete řídit</h2>
+      </div>
+      <p class="lead" data-reveal style="--d:.12s">Od skútru až po autobus. U každé skupiny najdete přesný rozsah výuky i vozidla, na kterých budete jezdit.</p>
+    </div>
+
+    <div class="groups">
+      <a class="gcard gcard--hot" href="rp-b.html" data-reveal data-tilt>
+        <span class="gcard__media">
+          <span class="gcard__ghost" aria-hidden="true">B</span>
+          <img src="assets/img/vehicles/skoda-rapid-sm.webp" alt="Výcvikový vůz Škoda Rapid" width="800" height="387" loading="lazy">
+        </span>
+        <span class="gcard__body">
+          <span class="gcard__row"><span class="gcard__code">B</span><span class="gcard__age">Od 18 let</span></span>
+          <span class="gcard__title">Osobní automobil</span>
+          <span class="gcard__text">Manuál nebo automat a k tomu jízda s přívěsem.</span>
+          <span class="chips"><span>B</span><span>B automat</span><span>BE</span><span>B96</span></span>
+        </span>
+        <span class="gcard__go">{{icon:arrow-right}}</span>
+      </a>
+
+      <a class="gcard" href="rp-a.html" data-reveal style="--d:.07s" data-tilt>
+        <span class="gcard__media">
+          <span class="gcard__ghost" aria-hidden="true">A</span>
+          <img class="is-bike" src="assets/img/vehicles/kawasaki-z650-sm.webp" alt="Výcvikový motocykl Kawasaki Z650" width="560" height="550" loading="lazy">
+        </span>
+        <span class="gcard__body">
+          <span class="gcard__row"><span class="gcard__code">A</span><span class="gcard__age">Od 15 let</span></span>
+          <span class="gcard__title">Motocykl</span>
+          <span class="gcard__text">Od mopedu až po stroj bez omezení výkonu.</span>
+          <span class="chips"><span>AM</span><span>A1</span><span>A2</span><span>A</span></span>
+        </span>
+        <span class="gcard__go">{{icon:arrow-right}}</span>
+      </a>
+
+      <a class="gcard" href="rp-c.html" data-reveal style="--d:.14s" data-tilt>
+        <span class="gcard__media">
+          <span class="gcard__ghost" aria-hidden="true">C</span>
+          <img src="assets/img/vehicles/iveco-eurocargo-sm.webp" alt="Výcvikový nákladní vůz Iveco Eurocargo" width="760" height="491" loading="lazy">
+        </span>
+        <span class="gcard__body">
+          <span class="gcard__row"><span class="gcard__code">C</span><span class="gcard__age">Od 21 let</span></span>
+          <span class="gcard__title">Nákladní automobil</span>
+          <span class="gcard__text">Vozy nad 3,5 tuny i celé soupravy.</span>
+          <span class="chips"><span>C</span><span>CE</span></span>
+        </span>
+        <span class="gcard__go">{{icon:arrow-right}}</span>
+      </a>
+
+      <a class="gcard" href="rp-d.html" data-reveal style="--d:.21s" data-tilt>
+        <span class="gcard__media">
+          <span class="gcard__ghost" aria-hidden="true">D</span>
+          <img src="assets/img/vehicles/sor-10-sm.webp" alt="Výcvikový autobus SOR 10,5" width="800" height="338" loading="lazy">
+        </span>
+        <span class="gcard__body">
+          <span class="gcard__row"><span class="gcard__code">D</span><span class="gcard__age">Od 21 let</span></span>
+          <span class="gcard__title">Autobus</span>
+          <span class="gcard__text">Pro ty, kdo chtějí za volantem vozit cestující.</span>
+          <span class="chips"><span>D</span><span>DE</span></span>
+        </span>
+        <span class="gcard__go">{{icon:arrow-right}}</span>
+      </a>
+    </div>
+
+    <div class="subhead" data-reveal>
+      <h3 class="h3">Další kurzy a služby</h3>
+    </div>
+
+    <div class="services">
+      <a class="scard" href="kondicni-jizdy.html" data-reveal>
+        <span class="scard__icon">{{icon:steering}}</span>
+        <span class="scard__go">{{icon:arrow-up-right}}</span>
+        <span class="scard__title">Kondiční jízdy</span>
+        <span class="scard__text">Po delší pauze nebo před koupí nového auta vám vrátíme jistotu za volantem.</span>
+      </a>
+      <a class="scard" href="skoleni-ridicu.html" data-reveal style="--d:.06s">
+        <span class="scard__icon">{{icon:graduation}}</span>
+        <span class="scard__go">{{icon:arrow-up-right}}</span>
+        <span class="scard__title">Školení řidičů</span>
+        <span class="scard__text">Profesní školení pro řidiče nákladních vozů a autobusů i referentské školení pro firmy.</span>
+      </a>
+      <a class="scard" href="vraceni-rp.html" data-reveal style="--d:.12s">
+        <span class="scard__icon">{{icon:rotate}}</span>
+        <span class="scard__go">{{icon:arrow-up-right}}</span>
+        <span class="scard__title">Vrácení řidičáku</span>
+        <span class="scard__text">Poradíme, kdy a za jakých podmínek získáte řidičské oprávnění zpět.</span>
+      </a>
+      <a class="scard" href="rekvalifikace.html" data-reveal style="--d:.18s">
+        <span class="scard__icon">{{icon:briefcase}}</span>
+        <span class="scard__go">{{icon:arrow-up-right}}</span>
+        <span class="scard__title">Rekvalifikace</span>
+        <span class="scard__text">Řidičák na nákladní auto nebo autobus, který za vás může zaplatit Úřad práce.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CESTA -->
+<section class="section process" id="cesta" data-tone="dark">
+  <div class="container">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>Jak to u nás chodí</p>
+        <h2 class="h2" data-reveal style="--d:.06s">Od přihlášky až k&nbsp;řidičáku</h2>
+      </div>
+      <p class="lead" data-reveal style="--d:.12s">Provedeme vás celou cestou. Vždy víte, co vás čeká, a nic vás nezaskočí.</p>
+    </div>
+
+    <div class="track" data-track>
+      <div class="track__rail" aria-hidden="true">
+        <div class="track__fill"></div>
+        <div class="track__car">
+          <svg viewBox="0 0 64 34" aria-hidden="true"><rect x="1" y="3" width="60" height="28" rx="11" fill="#FF8114"/><path d="M40 7.5h7.5a8 8 0 0 1 8 8v3a8 8 0 0 1-8 8H40c2.2-5.6 2.2-13.4 0-19Z" fill="#0A0A0B" opacity=".82"/><path d="M13 8h6c-1.6 5.6-1.6 12.4 0 18h-6a5 5 0 0 1-5-5v-8a5 5 0 0 1 5-5Z" fill="#0A0A0B" opacity=".6"/><rect x="58" y="7" width="4" height="6" rx="2" fill="#FFE8C7"/><rect x="58" y="21" width="4" height="6" rx="2" fill="#FFE8C7"/></svg>
+        </div>
+      </div>
+      <ol class="steps">
+        <li class="step" data-step>
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__num">Krok 1</span>
+          <h3 class="step__title">Přihláška</h3>
+          <p>Stáhněte si přihlášku a zdravotní posudek, nechte je potvrdit lékařem a přineste k nám.</p>
+          <a class="link" href="dokumenty.html">Formuláře ke stažení{{icon:arrow-right}}</a>
+        </li>
+        <li class="step" data-step>
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__num">Krok 2</span>
+          <h3 class="step__title">Teorie</h3>
+          <p>Pravidla provozu, zdravotní příprava a údržba vozidla. Výklad vedeme srozumitelně a s nadhledem.</p>
+        </li>
+        <li class="step" data-step>
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__num">Krok 3</span>
+          <h3 class="step__title">Jízdy</h3>
+          <p>Za volantem sedíte jen vy a instruktor. Začínáme v klidných ulicích a postupně přidáváme hustší provoz.</p>
+        </li>
+        <li class="step" data-step>
+          <span class="step__dot" aria-hidden="true"></span>
+          <span class="step__num">Krok 4</span>
+          <h3 class="step__title">Zkouška</h3>
+          <p>Test a praktická jízda ve voze, který dobře znáte. Na zkoušku jdeme s vámi.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- PROČ MY -->
+<section class="section" id="proc" data-tone="light">
+  <div class="container">
+    <div class="shead">
+      <div>
+        <p class="eyebrow" data-reveal>Proč k nám</p>
+        <h2 class="h2" data-reveal style="--d:.06s">Šetříme váš čas i peníze</h2>
+      </div>
+      <p class="lead" data-reveal style="--d:.12s">Výcvik skládáme kolem vašeho života, ne naopak. A spoustu věcí, za které jinde připlatíte, u nás máte v ceně.</p>
+    </div>
+
+    <div class="perks">
+      <article class="perk perk--wide" data-reveal>
+        <div class="perk__visual slots" aria-hidden="true">
+          <span class="slot">{{icon:clock}}<em>Po</em><b>7:00</b></span>
+          <span class="slot slot--hot">{{icon:clock}}<em>St</em><b>17:30</b></span>
+          <span class="slot">{{icon:clock}}<em>So</em><b>9:00</b></span>
+        </div>
+        <div class="perk__body">
+          <h3 class="perk__title">Tempo určujete vy</h3>
+          <p>Individuální výuku i výcvik máte zdarma. Nejste vázaní na skupinu ani na pevný rozvrh kurzu.</p>
+        </div>
+      </article>
+
+      <article class="perk perk--wide" data-reveal style="--d:.07s">
+        <div class="perk__visual week" aria-hidden="true"><span>Po</span><span>Út</span><span>St</span><span>Čt</span><span>Pá</span><span>So</span><span>Ne</span></div>
+        <div class="perk__body">
+          <h3 class="perk__title">Jezdíme celý týden</h3>
+          <p>Jízdy od 6:30 do 21:30 a teorie i o víkendu, termín se najde vždycky.</p>
+        </div>
+      </article>
+
+      <article class="perk" data-reveal>
+        <div class="perk__visual ring" aria-hidden="true">
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="ring__bg"/><circle cx="60" cy="60" r="50" class="ring__fg" pathLength="100"/></svg>
+          <span class="ring__label"><b>90</b>min</span>
+        </div>
+        <div class="perk__body">
+          <h3 class="perk__title">Jízda na celý čas</h3>
+          <p>Bez limitu kilometrů. Čas za volantem patří opravdu vám.</p>
+        </div>
+      </article>
+
+      <article class="perk perk--hot" data-reveal style="--d:.06s">
+        <span class="perk__icon">{{icon:wallet}}</span>
+        <div class="perk__body">
+          <h3 class="perk__title">Splátky bez navýšení</h3>
+          <p>Kurz si rozložíte, jak potřebujete, a nezaplatíte nic navíc.</p>
+        </div>
+      </article>
+
+      <article class="perk" data-reveal style="--d:.12s">
+        <span class="perk__icon">{{icon:monitor}}</span>
+        <div class="perk__body">
+          <h3 class="perk__title">Výuka i doma</h3>
+          <p>Multimediální program zdarma a k zapůjčení výukové filmy i další pomůcky.</p>
+        </div>
+      </article>
+
+      <article class="perk perk--dark" data-reveal style="--d:.18s">
+        <span class="perk__icon">{{icon:headphones}}</span>
+        <div class="perk__body">
+          <h3 class="perk__title">Helma s Bluetooth</h3>
+          <p>Na motorce vás s instruktorem spojí bezdrátová helma, kterou vám zapůjčíme.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- MINI TEST -->
+<section class="section" id="test" data-tone="dark">
+  <div class="container">
+    <div class="quiz" data-quiz>
+      <div class="quiz__intro">
+        <p class="eyebrow" data-reveal>Mini test</p>
+        <h2 class="h2" data-reveal style="--d:.06s">Dali byste to hned teď?</h2>
+        <p class="lead" data-reveal style="--d:.12s">Čtyři rychlé otázky z pravidel provozu. Zkuste si, jak na tom jste, ještě před první hodinou.</p>
+        <div class="quiz__dots" data-reveal style="--d:.18s" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+      </div>
+
+      <div class="quiz__card" data-reveal style="--d:.1s">
+        <div class="q is-active" data-q data-answer="1">
+          <div class="q__top">
+            <div class="q__sign">
+              <svg viewBox="0 0 100 100" role="img" aria-label="Dopravní značka STOP"><polygon points="30.95,4 69.05,4 96,30.95 96,69.05 69.05,96 30.95,96 4,69.05 4,30.95" fill="#fff"/><polygon points="32.6,8 67.4,8 92,32.6 92,67.4 67.4,92 32.6,92 8,67.4 8,32.6" fill="#C8102E"/><text x="50" y="59.5" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="25" fill="#fff" letter-spacing="1">STOP</text></svg>
+            </div>
+            <div>
+              <p class="q__num">Otázka 1 ze 4</p>
+              <h3 class="q__title">Co vám přikazuje tato značka?</h3>
+            </div>
+          </div>
+          <div class="q__opts">
+            <button class="opt" type="button">Zákaz zastavení</button>
+            <button class="opt" type="button">Stůj, dej přednost v jízdě</button>
+            <button class="opt" type="button">Konec všech zákazů</button>
+          </div>
+          <p class="q__why">Před křižovatkou musíte vždy úplně zastavit a teprve potom dát přednost vozidlům na hlavní silnici.</p>
+        </div>
+
+        <div class="q" data-q data-answer="0">
+          <div class="q__top">
+            <div class="q__sign">
+              <svg viewBox="0 0 100 100" role="img" aria-label="Žlutý kosočtverec s bílým okrajem"><polygon points="50,3 97,50 50,97 3,50" fill="#fff" stroke="#2A2A2A" stroke-width="1.6"/><polygon points="50,19 81,50 50,81 19,50" fill="#FFC20E"/></svg>
+            </div>
+            <div>
+              <p class="q__num">Otázka 2 ze 4</p>
+              <h3 class="q__title">Jak se tato značka jmenuje?</h3>
+            </div>
+          </div>
+          <div class="q__opts">
+            <button class="opt" type="button">Hlavní pozemní komunikace</button>
+            <button class="opt" type="button">Konec hlavní pozemní komunikace</button>
+            <button class="opt" type="button">Křižovatka s vedlejší silnicí</button>
+          </div>
+          <p class="q__why">Jedete po hlavní silnici, takže vozidla přijíždějící z vedlejších silnic vám musí dát přednost.</p>
+        </div>
+
+        <div class="q" data-q data-answer="2">
+          <div class="q__top">
+            <div class="q__sign">
+              <svg viewBox="0 0 100 100" role="img" aria-label="Obrácený trojúhelník s červeným okrajem"><polygon points="6,12 94,12 50,90" fill="#C8102E" stroke="#C8102E" stroke-width="6" stroke-linejoin="round"/><polygon points="22,21 78,21 50,70" fill="#fff"/></svg>
+            </div>
+            <div>
+              <p class="q__num">Otázka 3 ze 4</p>
+              <h3 class="q__title">Co musíte udělat u této značky?</h3>
+            </div>
+          </div>
+          <div class="q__opts">
+            <button class="opt" type="button">Vždy úplně zastavit</button>
+            <button class="opt" type="button">Nic, mám přednost já</button>
+            <button class="opt" type="button">Dát přednost v jízdě</button>
+          </div>
+          <p class="q__why">Přednost mají vozidla na křižující silnici. Zastavovat ale nemusíte, když je volno.</p>
+        </div>
+
+        <div class="q" data-q data-answer="0">
+          <div class="q__top">
+            <div class="q__sign q__sign--wide">
+              <svg viewBox="0 0 140 70" role="img" aria-label="Tabule začátku obce Hlinsko"><rect x="3" y="3" width="134" height="64" rx="5" fill="#fff" stroke="#111" stroke-width="3"/><rect x="9" y="9" width="122" height="52" rx="2" fill="none" stroke="#111" stroke-width="1.5"/><text x="70" y="44" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="21" fill="#111">Hlinsko</text></svg>
+            </div>
+            <div>
+              <p class="q__num">Otázka 4 ze 4</p>
+              <h3 class="q__title">Jak rychle smíte jet osobním autem za touto tabulí?</h3>
+            </div>
+          </div>
+          <div class="q__opts">
+            <button class="opt" type="button">Nejvýše 50 km/h</button>
+            <button class="opt" type="button">Nejvýše 70 km/h</button>
+            <button class="opt" type="button">Nejvýše 90 km/h</button>
+          </div>
+          <p class="q__why">V obci platí nejvyšší rychlost 50 km/h, pokud dopravní značka nestanoví jinak.</p>
+        </div>
+
+        <div class="q q--result" data-result>
+          <div class="score" aria-live="polite"><b data-score>0</b><span>ze 4</span></div>
+          <h3 class="q__title" data-verdict>Hotovo</h3>
+          <p class="q__why" data-verdict-text></p>
+          <div class="q__actions">
+            <a class="btn btn--primary" href="#kontakt" data-magnetic>Chci na řidičák<span class="btn__arrow">{{icon:arrow-right}}</span></a>
+            <button class="btn btn--ghost" type="button" data-quiz-restart>{{icon:rotate}}Zkusit znovu</button>
+          </div>
+        </div>
+
+        <button class="q__next btn btn--light btn--sm" type="button" data-quiz-next hidden><span data-next-label>Další otázka</span>{{icon:arrow-right}}</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADICE -->
+<section class="section statement" data-tone="orange">
+  <div class="container">
+    <p class="eyebrow" data-reveal>Naše zkušenosti</p>
+    <p class="statement__text" data-words>Stavíme na zkušenostech <em>první soukromé autoškoly v&nbsp;Česku.</em> Učíme moderními metodami a v&nbsp;přátelské atmosféře, aby vás nezaskočila ani okreska, ani hustý provoz velkoměsta.</p>
+
+    <div class="facts">
+      <div class="fact" data-reveal>
+        <span class="fact__icon">{{icon:award}}</span>
+        <h3 class="fact__title">Profesní společenství autoškol</h3>
+        <p>Jsme členy oborového sdružení autoškol.</p>
+      </div>
+      <div class="fact" data-reveal style="--d:.08s">
+        <span class="fact__icon">{{icon:shield-check}}</span>
+        <h3 class="fact__title">Akreditované středisko</h3>
+        <p>Máme akreditaci k provozování školicího střediska pro profesní řidiče.</p>
+      </div>
+      <div class="fact" data-reveal style="--d:.16s">
+        <span class="fact__icon">{{icon:building}}</span>
+        <h3 class="fact__title">Vlastní zázemí</h3>
+        <p>Vybavené učebny, učebnice a zkušební testy na počítači přímo u nás.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="dotazy" data-tone="light">
+  <div class="container faq">
+    <div class="faq__head">
+      <p class="eyebrow" data-reveal>Časté dotazy</p>
+      <h2 class="h2" data-reveal style="--d:.06s">Než se přihlásíte</h2>
+      <p class="lead" data-reveal style="--d:.12s">Odpovědi na to, na co se lidé ptají nejčastěji. Zbytek rádi probereme po telefonu.</p>
+    </div>
+
+    <div class="qas" data-reveal style="--d:.1s">
+      <details class="qa">
+        <summary><span>Od kolika let můžu začít?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Na moped skupiny AM od 15 let a na lehký motocykl A1 od 16 let. Osobní auto a motocykl A2 můžete řídit od 18 let, nákladní auto od 21 let a motocykl bez omezení výkonu od 24 let.</p></div>
+      </details>
+      <details class="qa">
+        <summary><span>Co potřebuji k přihlášení?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Vyplněnou přihlášku a posudek o zdravotní způsobilosti, obojí potvrzené vaším lékařem. Formuláře najdete v sekci <a href="dokumenty.html">Dokumenty</a>.</p></div>
+      </details>
+      <details class="qa">
+        <summary><span>Můžu se naučit řídit na automatu?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Ano, skupinu B učíme i s automatickou převodovkou. Kdybyste později chtěli řídit manuál, stačí vám krátký doplňující výcvik.</p></div>
+      </details>
+      <details class="qa">
+        <summary><span>Je poplatek za zkoušku v ceně kurzu?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Není. Správní poplatek se platí před zkouškou v pokladně městského úřadu. Aktuální výši najdete v <a href="cenik.html#poplatky">ceníku</a>.</p></div>
+      </details>
+      <details class="qa">
+        <summary><span>Co když zkoušku napoprvé neudělám?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Nic se neděje, to se stává. Na opravnou zkoušku vás doprovodíme a výcvikové vozidlo přistavíme.</p></div>
+      </details>
+      <details class="qa">
+        <summary><span>Už mám řidičák na A1. Musím začínat od nuly?</span><i class="qa__icon" aria-hidden="true"></i></summary>
+        <div class="qa__a"><p>Nemusíte. Držitelům nižší skupiny nabízíme rozšiřující výcvik, který je kratší i výrazně levnější.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
