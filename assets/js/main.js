@@ -195,6 +195,7 @@
   const hero = $('[data-hero]');
   const heroCopy = $('[data-hero-copy]');
   const pheroMedia = $('.phero__media');
+  const desktopMotion = window.matchMedia('(min-width: 1025px) and (hover: hover) and (pointer: fine)');
   const footer = $('.footer');
   const fab = $('.fab');
   const progress = $('.progress span');
@@ -234,8 +235,11 @@
       heroCopy.style.opacity = clamp(1 - y / (vh * 0.7), 0, 1).toFixed(3);
     }
 
-    if (pheroMedia && !reduceMotion && y < vh) {
+    // vozidla v hlavičce podstránek se posouvají jen na desktopu
+    if (pheroMedia && !reduceMotion && desktopMotion.matches && y < vh) {
       pheroMedia.style.transform = `translate3d(${-y * 0.08}px, ${y * 0.12}px, 0)`;
+    } else if (pheroMedia && pheroMedia.style.transform && !desktopMotion.matches) {
+      pheroMedia.style.transform = '';
     }
 
     // cesta

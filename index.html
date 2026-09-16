@@ -56,8 +56,7 @@
               </a>
               <a class="drop-car" href="rp-c.html" data-page="rp-c">
                 <span class="drop-car__code">C</span>
-                <span class="drop-car__name">
-                  Nákladní automobil</span>
+                <span class="drop-car__name">Nákladní automobil</span>
                 <img src="assets/img/vehicles/iveco-eurocargo-sm.webp" alt="" width="760" height="491" loading="lazy">
               </a>
               <a class="drop-car" href="rp-d.html" data-page="rp-d">
@@ -120,7 +119,6 @@
 <!-- HERO: pohled z místa řidiče -->
 <section class="hero" data-tone="dark" data-hero>
   <canvas class="hero__road" data-road aria-hidden="true"></canvas>
-  <div class="hero__shade" aria-hidden="true"></div>
 
   <div class="container hero__inner">
     <div class="hero__copy" data-hero-copy>
@@ -135,86 +133,6 @@
     </div>
   </div>
 
-  <div class="hero__cockpit" aria-hidden="true">
-    <svg class="hero__frame" viewBox="0 0 1000 1000" preserveAspectRatio="none">
-      <path fill="#070708" fill-rule="evenodd" d="M0 0H1000V1000H0Z M20 1000L150 112Q164 64 226 58Q500 38 774 58Q836 64 850 112L980 1000Z M0 252L70 206L5 602L0 608Z M1000 252L930 206L995 602L1000 608Z"/>
-      <path fill="#0B0B0D" fill-opacity=".6" d="M0 252L70 206L5 602L0 608Z M1000 252L930 206L995 602L1000 608Z"/>
-      <path fill="none" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="1" vector-effect="non-scaling-stroke" d="M20 1000L150 112Q164 64 226 58Q500 38 774 58Q836 64 850 112L980 1000"/>
-      <path fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke" d="M0 252L70 206L5 602M1000 252L930 206L995 602"/>
-      <path fill="#0F0F11" d="M176 44H436Q450 44 450 58V88Q450 102 436 102H190Q176 102 176 88Z M824 44H564Q550 44 550 58V88Q550 102 564 102H810Q824 102 824 88Z"/>
-      <path fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke" d="M176 44H436Q450 44 450 58V88Q450 102 436 102H190Q176 102 176 88Z M824 44H564Q550 44 550 58V88Q550 102 564 102H810Q824 102 824 88Z"/>
-    </svg>
-
-    <div class="dash">
-      <svg class="dash__body" viewBox="0 0 1000 300" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="dash-top" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1C1C1E"/><stop offset=".24" stop-color="#101011"/><stop offset="1" stop-color="#050506"/></linearGradient>
-        </defs>
-        <path d="M0 74C140 38 300 20 500 20S860 38 1000 74V300H0Z" fill="url(#dash-top)"/>
-        <path d="M0 74C140 38 300 20 500 20S860 38 1000 74" fill="none" stroke="#FFFFFF" stroke-opacity=".1" stroke-width="1" vector-effect="non-scaling-stroke"/>
-        <path d="M0 134C160 106 320 96 500 96S840 106 1000 134" fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1" vector-effect="non-scaling-stroke"/>
-        <path d="M655 150C770 146 880 154 985 172" fill="none" stroke="#FF8114" stroke-opacity=".6" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-        <path d="M660 196C760 192 860 198 950 212V262C860 250 760 244 660 246Z" fill="#0A0A0B" stroke="#FFFFFF" stroke-opacity=".04" stroke-width="1" vector-effect="non-scaling-stroke"/>
-      </svg>
-
-      <svg class="dash__vent dash__vent--l" viewBox="0 0 120 52"><rect x="1" y="1" width="118" height="50" rx="14" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/><path d="M14 17H106M14 26H106M14 35H106" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/></svg>
-      <svg class="dash__vent dash__vent--r" viewBox="0 0 120 52"><rect x="1" y="1" width="118" height="50" rx="14" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/><path d="M14 17H106M14 26H106M14 35H106" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/></svg>
-
-      <div class="dash__center">
-        <div class="dash__screen"><canvas data-nav-screen></canvas></div>
-        <svg class="dash__vents" viewBox="0 0 280 56">
-          <rect x="1" y="1" width="108" height="54" rx="12" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/>
-          <rect x="171" y="1" width="108" height="54" rx="12" fill="#08080A" stroke="#FFFFFF" stroke-opacity=".1"/>
-          <path d="M14 18H96M14 28H96M14 38H96M184 18H266M184 28H266M184 38H266" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
-          <circle cx="140" cy="28" r="17" fill="#0D0D0F" stroke="#FFFFFF" stroke-opacity=".12"/>
-          <path d="M140 18.5 149.5 35H130.5Z" fill="none" stroke="#E5484D" stroke-width="2.4" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
-      <svg class="hero__cluster" viewBox="0 0 400 200">
-      <path d="M4 200C4 68 70 14 200 14S396 68 396 200Z" fill="#0C0C0D"/>
-      <path d="M4 200C4 68 70 14 200 14S396 68 396 200" fill="none" stroke="#FFFFFF" stroke-opacity=".07" stroke-width="1.5"/>
-      <path d="M24 200C26 88 84 40 200 40S372 88 376 200Z" fill="#060607"/>
-      <g class="gauge">
-      <circle cx="122" cy="124" r="66" fill="#09090A" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="1.5"/>
-      <path d="M73.5 152A56 56 0 1 1 170.5 152" fill="none" stroke="#F5F3EE" stroke-opacity=".55" stroke-width="7" pathLength="96" stroke-dasharray="0.9 5.1"/>
-      <path d="M161.8 101A46 46 0 0 1 161.8 147" fill="none" stroke="#FF8114" stroke-width="3" stroke-linecap="round"/>
-      <g data-needle="speed" transform="rotate(-120 122 124)"><path d="M122 130V74" stroke="#FF8114" stroke-width="3.5" stroke-linecap="round"/></g>
-      <circle cx="122" cy="124" r="8" fill="#1B1B1D" stroke="#FFFFFF" stroke-opacity=".12"/>
-      </g>
-      <g class="gauge">
-      <circle cx="278" cy="124" r="66" fill="#09090A" stroke="#FFFFFF" stroke-opacity=".08" stroke-width="1.5"/>
-      <path d="M229.5 152A56 56 0 1 1 326.5 152" fill="none" stroke="#F5F3EE" stroke-opacity=".55" stroke-width="7" pathLength="96" stroke-dasharray="0.9 5.1"/>
-      <path d="M317.8 101A46 46 0 0 1 317.8 147" fill="none" stroke="#FF8114" stroke-width="3" stroke-linecap="round"/>
-      <g data-needle="rpm" transform="rotate(-120 278 124)"><path d="M278 130V74" stroke="#FF8114" stroke-width="3.5" stroke-linecap="round"/></g>
-      <circle cx="278" cy="124" r="8" fill="#1B1B1D" stroke="#FFFFFF" stroke-opacity=".12"/>
-      </g>
-      <rect x="186" y="54" width="28" height="28" rx="4" fill="#1C4FA6"/>
-      <path d="M195 60.5V75.5H206" fill="none" stroke="#FFFFFF" stroke-width="3.6" stroke-linecap="square"/>
-      </svg>
-
-      <svg class="hero__wheel" data-wheel viewBox="0 0 400 400">
-      <defs>
-      <linearGradient id="wheel-rim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2A2B"/><stop offset=".5" stop-color="#161617"/><stop offset="1" stop-color="#0D0D0E"/></linearGradient>
-      <linearGradient id="wheel-hub" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#242426"/><stop offset="1" stop-color="#101011"/></linearGradient>
-      </defs>
-      <circle cx="200" cy="200" r="172" fill="none" stroke="url(#wheel-rim)" stroke-width="38"/>
-      <circle cx="200" cy="200" r="191" fill="none" stroke="#FFFFFF" stroke-opacity=".09" stroke-width="1.5"/>
-      <circle cx="200" cy="200" r="153" fill="none" stroke="#FFFFFF" stroke-opacity=".05" stroke-width="1.5"/>
-      <path d="M40 150A172 172 0 0 1 360 150" fill="none" stroke="#FFD2A8" stroke-opacity=".14" stroke-width="3" stroke-linecap="round"/>
-      <path d="M58 88A172 172 0 0 1 96 50" fill="none" stroke="#0A0A0B" stroke-width="40" stroke-linecap="butt" opacity=".55"/>
-      <path d="M342 88A172 172 0 0 0 304 50" fill="none" stroke="#0A0A0B" stroke-width="40" stroke-linecap="butt" opacity=".55"/>
-      <circle cx="200" cy="200" r="172" fill="none" stroke="#FFFFFF" stroke-opacity=".06" stroke-width="1" stroke-dasharray="3 5"/>
-      <rect x="192" y="9" width="16" height="38" rx="3" fill="#FF8114"/>
-      <path d="M44 186C92 182 128 176 152 174V232C128 230 92 224 42 216Z" fill="url(#wheel-hub)"/>
-      <path d="M356 186C308 182 272 176 248 174V232C272 230 308 224 358 216Z" fill="url(#wheel-hub)"/>
-      <path d="M176 258H224L216 356H184Z" fill="url(#wheel-hub)"/>
-      <rect x="138" y="146" width="124" height="116" rx="48" fill="url(#wheel-hub)" stroke="#FFFFFF" stroke-opacity=".08"/>
-      <circle cx="200" cy="204" r="19" fill="none" stroke="#FF8114" stroke-width="3"/>
-      <path d="M192.5 196.5h15l-15 15h15" fill="none" stroke="#FF8114" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
 </section>
 
 <!-- ŘIDIČÁKY -->
@@ -235,7 +153,7 @@
           <img src="assets/img/vehicles/skoda-rapid-sm.webp" alt="Výcvikový vůz Škoda Rapid" width="800" height="387" loading="lazy">
         </span>
         <span class="gcard__body">
-          <span class="gcard__row"><span class="gcard__code">B</span><span class="gcard__age">Od 18 let</span></span>
+          <span class="gcard__row"><span class="gcard__code">B</span><span class="gcard__age">Od 17 let</span></span>
           <span class="gcard__title">Osobní automobil</span>
           <span class="gcard__text">Manuál nebo automat a k tomu jízda s přívěsem.</span>
           <span class="chips"><span>B</span><span>B automat</span><span>BE</span><span>B96</span></span>
@@ -379,63 +297,16 @@
       <p class="lead" data-reveal style="--d:.12s">Výcvik skládáme kolem vašeho života, ne naopak. A spoustu věcí, za které jinde připlatíte, u nás máte v ceně.</p>
     </div>
 
-    <div class="perks">
-      <article class="perk perk--wide" data-reveal>
-        <div class="perk__visual slots" aria-hidden="true">
-          <span class="slot"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><em>Po</em><b>7:00</b></span>
-          <span class="slot slot--hot"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><em>St</em><b>17:30</b></span>
-          <span class="slot"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><em>So</em><b>9:00</b></span>
-        </div>
-        <div class="perk__body">
-          <h3 class="perk__title">Tempo určujete vy</h3>
-          <p>Individuální výuku i výcvik máte zdarma. Nejste vázaní na skupinu ani na pevný rozvrh kurzu.</p>
-        </div>
-      </article>
-
-      <article class="perk perk--wide" data-reveal style="--d:.07s">
-        <div class="perk__visual week" aria-hidden="true"><span>Po</span><span>Út</span><span>St</span><span>Čt</span><span>Pá</span><span>So</span><span>Ne</span></div>
-        <div class="perk__body">
-          <h3 class="perk__title">Jezdíme celý týden</h3>
-          <p>Jízdy od 6:30 do 21:30 a teorie i o víkendu, termín se najde vždycky.</p>
-        </div>
-      </article>
-
-      <article class="perk" data-reveal>
-        <div class="perk__visual ring" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50" class="ring__bg"/><circle cx="60" cy="60" r="50" class="ring__fg" pathLength="100"/></svg>
-          <span class="ring__label"><b>90</b>min</span>
-        </div>
-        <div class="perk__body">
-          <h3 class="perk__title">Jízda na celý čas</h3>
-          <p>Bez limitu kilometrů. Čas za volantem patří opravdu vám.</p>
-        </div>
-      </article>
-
-      <article class="perk perk--hot" data-reveal style="--d:.06s">
-        <span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></span>
-        <div class="perk__body">
-          <h3 class="perk__title">Splátky bez navýšení</h3>
-          <p>Kurz si rozložíte, jak potřebujete, a nezaplatíte nic navíc.</p>
-        </div>
-      </article>
-
-      <article class="perk" data-reveal style="--d:.12s">
-        <span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
-        <div class="perk__body">
-          <h3 class="perk__title">Výuka i doma</h3>
-          <p>Multimediální program zdarma a k zapůjčení výukové filmy i další pomůcky.</p>
-        </div>
-      </article>
-
-      <article class="perk perk--dark" data-reveal style="--d:.18s">
-        <span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span>
-        <div class="perk__body">
-          <h3 class="perk__title">Helma s Bluetooth</h3>
-          <p>Na motorce vás s instruktorem spojí bezdrátová helma, kterou vám zapůjčíme.</p>
-        </div>
-      </article>
-    </div>
+    <ul class="perks">
+      <li class="perk" data-reveal><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></span><div><h3 class="perk__title">Tempo určujete vy</h3><p>Individuální výuku i výcvik máte zdarma, bez vázání na skupinu nebo pevný rozvrh.</p></div></li>
+      <li class="perk" data-reveal style="--d:.06s"><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span><div><h3 class="perk__title">Jezdíme celý týden</h3><p>Jízdy od 6:30 do 21:30 a teorie i o víkendu.</p></div></li>
+      <li class="perk" data-reveal><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><div><h3 class="perk__title">Jízda na celý čas</h3><p>Bez limitu kilometrů, čas za volantem patří vám.</p></div></li>
+      <li class="perk" data-reveal style="--d:.06s"><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></span><div><h3 class="perk__title">Splátky bez navýšení</h3><p>Kurz si rozložíte, jak potřebujete, a nic nepřiplatíte.</p></div></li>
+      <li class="perk" data-reveal><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><h3 class="perk__title">Výuka i doma</h3><p>Multimediální program zdarma, k zapůjčení filmy a další pomůcky.</p></div></li>
+      <li class="perk" data-reveal style="--d:.06s"><span class="perk__icon"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg></span><div><h3 class="perk__title">Helma s Bluetooth</h3><p>Na motorce vás s instruktorem spojí bezdrátová helma.</p></div></li>
+    </ul>
   </div>
+
 </section>
 
 <!-- MINI TEST -->
@@ -576,7 +447,7 @@
     <div class="qas" data-reveal style="--d:.1s">
       <details class="qa">
         <summary><span>Od kolika let můžu začít?</span><i class="qa__icon" aria-hidden="true"></i></summary>
-        <div class="qa__a"><p>Na moped skupiny AM od 15 let a na lehký motocykl A1 od 16 let. Osobní auto a motocykl A2 můžete řídit od 18 let, nákladní auto od 21 let a motocykl bez omezení výkonu od 24 let.</p></div>
+        <div class="qa__a"><p>Na moped skupiny AM od 15 let a na lehký motocykl A1 od 16 let. Osobní auto můžete řídit už od 17 let, do osmnácti ale jen <a href="rp-b.html#od17">s mentorem</a> vedle sebe. Motocykl A2 od 18 let, nákladní auto od 21 let a motocykl bez omezení výkonu od 24 let.</p></div>
       </details>
       <details class="qa">
         <summary><span>Co potřebuji k přihlášení?</span><i class="qa__icon" aria-hidden="true"></i></summary>
