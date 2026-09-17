@@ -742,10 +742,11 @@ html:not(.js) .tab[aria-selected="true"] { background: var(--ink); }
 
 /* Kroky (malé) */
 .nsteps { counter-reset: s; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.nstep { position: relative; padding: 32px; border-radius: var(--r-l); background: var(--surface); border: 1px solid var(--line); }
-.nstep::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 44px; border-radius: 50%; background: var(--orange); color: var(--ink); font-family: var(--font-display); font-weight: 850; font-size: 1.2rem; }
+.nstep { position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 32px; border-radius: var(--r-l); background: var(--surface); border: 1px solid var(--line); }
+.nstep::before { counter-increment: s; content: counter(s); display: grid; place-items: center; width: 48px; height: 48px; margin-bottom: 26px; border-radius: 50%; background: var(--orange); color: var(--ink); font-family: var(--font-display); font-weight: 850; font-size: 1.2rem; }
 .nstep h3 { font-size: 1.45rem; font-weight: 780; }
 .nstep p { margin-top: 10px; color: var(--muted); }
+.nstep .link { margin-top: auto; padding-top: 18px; }
 
 /* Ceník */
 .pnav-wrap { position: sticky; top: calc(var(--nav-h) + 22px); z-index: 20; margin-bottom: 8px; transition: top .6s var(--ease); }
