@@ -7,6 +7,7 @@ Výstup:   *.html v kořeni projektu (to se nasazuje)
 
 Spuštění: python build.py
 """
+import hashlib
 import html
 import json
 import pathlib
@@ -99,6 +100,23 @@ def render_tokens(text: str) -> str:
     return text
 
 
+_hashes: dict = {}
+
+
+def version_assets(doc: str) -> str:
+    """Přidá k odkazům na assets ?v=otisk obsahu. Vercel je posílá jako immutable,
+    takže bez toho by prohlížeče (hlavně Safari na iPhonu) držely staré CSS a JS."""
+    def repl(m: re.Match) -> str:
+        path = m.group(0)
+        if path not in _hashes:
+            f = ROOT / path
+            if not f.is_file():
+                return path
+            _hashes[path] = hashlib.md5(f.read_bytes().replace(b"\r\n", b"\n")).hexdigest()[:10]
+        return f"{path}?v={_hashes[path]}"
+    return re.sub(r"(?<![/\w])assets/[\w./-]+\.(?:css|js|webp|png|jpe?g|svg|webmanifest)(?![?\w])", repl, doc)
+
+
 def visible_text(doc: str) -> str:
     head = re.search(r"<head>.*?</head>", doc, re.S)
     meta_text = ""
@@ -145,7 +163,7 @@ def main() -> None:
             .replace("{{theme}}", meta.get("theme", "dark"))
             .replace("{{head_extra}}", meta.get("head_extra", ""))
         )
-        out = render_tokens(out)
+        out = version_assets(render_tokens(out))
 
         leftovers = re.findall(r"\{\{[^}]+\}\}", out)
         if leftovers:

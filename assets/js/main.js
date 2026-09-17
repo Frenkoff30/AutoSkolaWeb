@@ -229,10 +229,13 @@
     }
     lastY = y;
 
-    // hero
-    if (hero && heroCopy && !reduceMotion && y < vh * 1.3) {
+    // hero text při scrollu odplouvá jen na desktopu, na telefonu stojí
+    if (hero && heroCopy && !reduceMotion && desktopMotion.matches && y < vh * 1.3) {
       heroCopy.style.transform = `translate3d(0, ${(y * 0.28).toFixed(1)}px, 0) scale(${(1 - clamp(y / vh, 0, 1) * 0.06).toFixed(4)})`;
       heroCopy.style.opacity = clamp(1 - y / (vh * 0.7), 0, 1).toFixed(3);
+    } else if (heroCopy && heroCopy.style.transform && !desktopMotion.matches) {
+      heroCopy.style.transform = '';
+      heroCopy.style.opacity = '';
     }
 
     // vozidla v hlavičce podstránek se posouvají jen na desktopu

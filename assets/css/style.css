@@ -590,7 +590,7 @@ html.js .statement__text .w.is-on { opacity: 1; }
 .brand--footer { align-self: flex-start; }
 .footer__cols { display: grid; grid-template-columns: repeat(3, minmax(150px, auto)); gap: 32px 64px; }
 .footer__h { font-size: .75rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-.footer__cols ul { display: flex; flex-direction: column; gap: 8px; }
+.footer__cols ul { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .footer__cols a { font-weight: 600; color: var(--fg); transition: color .3s; }
 .footer__cols a:hover { color: var(--orange); }
 .footer__bottom { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 48px; padding: 24px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9375rem; }
@@ -861,10 +861,8 @@ body.nav-hidden .pnav-wrap { top: 14px; }
   .phero__media--wide .m1 { width: 100%; left: 0; }
 }
 @media (max-width: 680px) {
-  .phero__media--b, .phero__media--a { min-height: 250px; }
   .phero__title { font-size: clamp(2.4rem, 11vw, 4rem); }
   .phero--text .phero__title { font-size: clamp(2.2rem, 10.4vw, 4rem); }
-  .phero__media--wide { min-height: 210px; }
   .phero--compact .phero__media { display: none; }
   .lic--wide .specs, .lic--wide .paths + .specs { grid-template-columns: 1fr; }
   .prow--doc { grid-template-columns: 48px minmax(0, 1fr); }
@@ -938,7 +936,21 @@ body.nav-hidden .pnav-wrap { top: 14px; }
   .gcard__media { height: 210px; }
   .gcard__media img { height: 160px; }
   .gcard__media img.is-bike { height: 180px; }
-  .scard { min-height: 0; }
+  .services { gap: 10px; }
+  .scard { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 16px; align-items: start; min-height: 0; padding: 20px; }
+  .scard__icon { grid-row: 1 / span 2; width: 48px; height: 48px; border-radius: 14px; }
+  .scard__icon .i { width: 22px; height: 22px; }
+  .scard__go { top: 18px; right: 18px; width: 34px; height: 34px; }
+  .scard__go .i { width: 16px; height: 16px; }
+  .scard__title { grid-column: 2; margin: 0; padding: 2px 42px 0 0; font-size: 1.2rem; }
+  .scard__text { grid-column: 2; margin-top: 6px; }
+
+  .phero__inner { gap: 28px; }
+  .phero__media, .phero__media--a, .phero__media--b, .phero__media--wide { min-height: 0; }
+  .phero__media--b { aspect-ratio: 1 / .86; }
+  .phero__media--a { aspect-ratio: 1 / .62; }
+  .phero__media--wide { aspect-ratio: 1 / .56; }
+  .map { min-height: 320px; }
 
   .quiz__card { min-height: 0; }
   .q__top { flex-direction: column; align-items: flex-start; gap: 18px; }
@@ -954,9 +966,23 @@ body.nav-hidden .pnav-wrap { top: 14px; }
 
   .personas, .offer { grid-template-columns: 1fr; }
   .persona, .persona:nth-child(4), .persona:nth-child(5) { grid-column: span 1; }
+  .personas { gap: 10px; }
+  .personas .persona { display: grid; grid-template-columns: 48px minmax(0, 1fr); column-gap: 16px; align-items: start; min-height: 0; padding: 20px; }
+  .persona .card__icon { grid-row: 1 / span 2; width: 48px; height: 48px; border-radius: 14px; }
+  .persona .card__icon .i { width: 22px; height: 22px; }
+  .persona h3 { grid-column: 2; margin: 0; padding: 2px 0 0; font-size: 1.2rem; }
+  .persona p { grid-column: 2; margin-top: 6px; }
+  .nstep { padding: 24px; }
+  .nstep::before { margin-bottom: 20px; }
+  .card--big { min-height: 0; }
+  .card__mega { font-size: clamp(2.8rem, 15vw, 4.4rem); }
   .stats { grid-template-columns: 1fr 1fr; }
   .specs { grid-template-columns: 1fr; }
-  .lic__code { min-width: 68px; height: 68px; font-size: 1.7rem; border-radius: 18px; }
+  .spec dt { font-size: .75rem; }
+  .lic__head { gap: 14px; }
+  .lic__head > div { min-width: 0; }
+  .lic__code { min-width: 62px; height: 62px; padding: 0 12px; font-size: 1.5rem; border-radius: 16px; }
+  .lic__title { font-size: clamp(1.3rem, 5.8vw, 1.6rem); overflow-wrap: break-word; }
   .tabs__list { display: flex; border-radius: 22px; }
   .tab { flex: 1 1 auto; justify-content: center; padding: 0 14px; }
   .tabs__ind { border-radius: 16px; }

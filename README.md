@@ -27,3 +27,5 @@ Ikony se vkládají tokenem `{{icon:nazev}}` (seznam v `build.py`), logo tokenem
 ## Nasazení
 
 Nasazuje se celý kořen projektu. `vercel.json` zapíná adresy bez přípony, takže původní URL jako `/cenik` nebo `/rp-b` fungují dál.
+
+Soubory v `assets/` posílá Vercel s cache na 30 dní. Build proto ke každému odkazu na CSS, JS a obrázky přidá `?v=otisk obsahu`. Po každé úpravě stylů nebo skriptů je nutné spustit `python build.py`, jinak si prohlížeče (hlavně Safari na iPhonu) nechají staré verze.
