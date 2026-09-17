@@ -95,6 +95,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+  transition: background-color .9s var(--ease);
+}
+/* Barvy textu a karet se prolínají jen v sekcích u obrazovky (třída tone-live z main.js).
+   Kdyby se proměnné animovaly na body, přepočítávala by se při každé změně celá stránka a scroll by se sekal. */
+[data-tone] { color: var(--fg); }
+.tone-live {
   transition: --bg .9s var(--ease), --fg .9s var(--ease), --muted .9s var(--ease), --line .9s var(--ease),
     --surface .9s var(--ease), --surface-2 .9s var(--ease), --accent-ink .9s var(--ease), --chip .9s var(--ease);
 }
@@ -186,7 +192,7 @@ p { text-wrap: pretty; }
 
 /* ---------- Progress ---------- */
 .progress { position: fixed; inset: 0 0 auto; height: 3px; z-index: 70; pointer-events: none; }
-.progress span { display: block; height: 100%; background: linear-gradient(90deg, var(--orange-lo), var(--orange), var(--orange-hi)); transform-origin: 0 50%; transform: scaleX(0); }
+.progress span { display: block; height: 100%; will-change: transform; background: linear-gradient(90deg, var(--orange-lo), var(--orange), var(--orange-hi)); transform-origin: 0 50%; transform: scaleX(0); }
 
 /* ---------- Navigace ---------- */
 .nav {
@@ -203,11 +209,11 @@ p { text-wrap: pretty; }
   display: flex; align-items: center; gap: 12px;
   border-radius: 999px; color: #F5F3EE;
   background: rgba(14, 14, 16, 0); border: 1px solid transparent;
-  transition: background-color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease), backdrop-filter .5s var(--ease);
+  transition: background-color .5s var(--ease), border-color .5s var(--ease), box-shadow .5s var(--ease);
 }
 .nav.is-scrolled .nav__bar, .nav.is-open .nav__bar {
   background: rgba(16, 16, 18, .72); border-color: rgba(255, 255, 255, .08);
-  -webkit-backdrop-filter: blur(18px) saturate(170%); backdrop-filter: blur(18px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   box-shadow: 0 18px 50px -24px rgba(0, 0, 0, .65);
 }
 
@@ -380,8 +386,7 @@ html.js [data-reveal].is-in { opacity: 1; transform: none; }
 .gcard__go {
   position: absolute; z-index: 2; top: 14px; right: 14px;
   display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-  background: rgba(255, 255, 255, .1); color: #fff; border: 1px solid rgba(255, 255, 255, .12);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  background: rgba(22, 22, 24, .55); color: #fff; border: 1px solid rgba(255, 255, 255, .12);
   transition: transform .6s var(--ease), background-color .4s var(--ease), color .4s var(--ease);
 }
 .gcard__go .i { width: 20px; height: 20px; }
@@ -989,6 +994,8 @@ body.nav-hidden .pnav-wrap { top: 14px; }
   .doc { grid-template-columns: auto minmax(0, 1fr); }
   .doc__dl { display: none; }
   .pnav-wrap { margin-inline: calc(-1 * var(--gutter)); padding-inline: 10px; }
+  .nav.is-scrolled .nav__bar, .nav.is-open .nav__bar { background: rgba(16, 16, 18, .94); -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .pnav { background: rgba(255, 255, 255, .96); -webkit-backdrop-filter: none; backdrop-filter: none; }
 }
 
 @media (hover: none) {

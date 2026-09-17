@@ -21,6 +21,8 @@
   const lerp = (a, b, k) => a + (b - a) * k;
   const easeOut = (k) => 1 - Math.pow(1 - clamp(k, 0, 1), 3);
   const TAU = Math.PI * 2;
+  // deterministický šum, aby mraky vypadaly při každém načtení stejně
+  const hash = (n) => { const s = Math.sin(n * 127.1 + 311.7) * 43758.5453; return s - Math.floor(s); };
 
   let W = 0, H = 0, hz = 0, dpr = 1;
   let travel = 0, boost = 0, curve = 0, targetCurve = 0, pointerAt = -1e9, lastT = 0;
@@ -34,6 +36,8 @@
   const frameLayer = document.createElement('canvas');
   const dashLayer = document.createElement('canvas');
   const wheelLayer = document.createElement('canvas');
+  const skyLayer = document.createElement('canvas');
+  const SKY = { x: 0, y: 0, w: 0, h: 0 };
 
   const rrect = (c, x, y, w, h, r) => {
     r = Math.max(0, Math.min(r, w / 2, h / 2));
@@ -629,76 +633,131 @@
   };
 
   /* ---------- svět za čelním sklem ---------- */
-  const samples = [];
-  for (let i = 0; i <= 56; i++) samples.push(0.004 + Math.pow(i / 56, 2.1) * 1.1);
+  // obloha po západu slunce s tenkými nasvícenými mraky; mraky jsou měkké, stačí nižší rozlišení
+  const paintSky = () => {
+    const x0 = -W * 0.25, y0 = -H * 0.2, w = W * 1.5, h = hz - y0 + 2;
+    const k = Math.min(dpr, 1);
+    skyLayer.width = Math.max(1, Math.round(w * k));
+    skyLayer.height = Math.max(1, Math.round(h * k));
+    const c = skyLayer.getContext('2d');
+    c.setTransform(k, 0, 0, k, -x0 * k, -y0 * k);
+    Object.assign(SKY, { x: x0, y: y0, w, h });
 
-  const band = (across, half, d0, d1, fill) => {
-    const list = [d0, ...samples.filter((d) => d > d0 && d < d1), d1];
-    ctx.beginPath();
-    list.forEach((d, i) => {
-      const x = roadX(d, across) - meter(d) * half;
-      i ? ctx.lineTo(x, depthY(d)) : ctx.moveTo(x, depthY(d));
-    });
-    for (let i = list.length - 1; i >= 0; i--) ctx.lineTo(roadX(list[i], across) + meter(list[i]) * half, depthY(list[i]));
-    ctx.closePath();
-    ctx.fillStyle = fill;
-    ctx.fill();
+    let g = c.createLinearGradient(0, 0, 0, hz);
+    g.addColorStop(0, '#07080D');
+    g.addColorStop(0.45, '#0B0B12');
+    g.addColorStop(0.72, '#171116');
+    g.addColorStop(0.9, '#2E1914');
+    g.addColorStop(1, '#442313');
+    c.fillStyle = g;
+    c.fillRect(x0, y0, w, h);
+
+    for (let i = 0; i < 10; i++) {
+      const r = (n) => hash(i * 13.7 + n);
+      const low = r(1);
+      const cy = hz * (0.52 + low * 0.4);
+      const cx = x0 + w * r(2);
+      const rx = W * (0.1 + r(3) * 0.2);
+      const ry = hz * (0.005 + r(4) * 0.012);
+      c.save();
+      c.translate(cx, cy);
+      c.scale(1, ry / rx);
+      g = c.createRadialGradient(0, 0, 0, 0, 0, rx);
+      g.addColorStop(0, `rgba(255, 146, 86, ${0.04 + low * 0.11})`);
+      g.addColorStop(1, 'rgba(255, 146, 86, 0)');
+      c.fillStyle = g;
+      c.fillRect(-rx, -rx, rx * 2, rx * 2);
+      c.restore();
+    }
   };
 
-  const hills = (amp, freq, sd, color, parallax) => {
+  // hřeben kopců v dálce
+  const ridge = (amp, freq, sd, parallax, color) => {
+    const off = curve * W * parallax;
     const scale = 1600 / Math.max(W, 900);
     ctx.beginPath();
-    ctx.moveTo(-W * 0.2, hz + 1);
-    for (let x = -W * 0.2; x <= W * 1.2 + 16; x += 16) {
-      const xx = (x + curve * W * parallax) * scale;
-      const a = 0.55 + 0.45 * Math.sin(xx * freq + sd);
-      const b = 0.65 + 0.35 * Math.sin(xx * freq * 0.41 + sd * 1.7);
-      ctx.lineTo(x, hz - amp * a * b);
+    ctx.moveTo(-W * 0.2, hz + 2);
+    for (let x = -W * 0.2; x <= W * 1.2 + 12; x += 12) {
+      const xx = (x + off) * scale;
+      ctx.lineTo(x, hz - amp * (0.55 + 0.45 * Math.sin(xx * freq + sd)) * (0.65 + 0.35 * Math.sin(xx * freq * 0.41 + sd * 1.7)));
     }
-    ctx.lineTo(W * 1.2 + 16, hz + 1);
+    ctx.lineTo(W * 1.2 + 12, hz + 2);
     ctx.closePath();
     ctx.fillStyle = color;
     ctx.fill();
   };
 
+  const samples = [];
+  for (let i = 0; i <= 56; i++) samples.push(0.004 + Math.pow(i / 56, 2.1) * 1.1);
+
+  // pás po délce silnice; bez pomocných polí, kreslí se desítkykrát za snímek
+  const band = (across, half, d0, d1, fill) => {
+    let i0 = 0;
+    while (i0 < samples.length && samples[i0] <= d0) i0++;
+    let i1 = i0;
+    while (i1 < samples.length && samples[i1] < d1) i1++;
+    ctx.beginPath();
+    ctx.moveTo(roadX(d0, across) - meter(d0) * half, depthY(d0));
+    for (let i = i0; i < i1; i++) ctx.lineTo(roadX(samples[i], across) - meter(samples[i]) * half, depthY(samples[i]));
+    ctx.lineTo(roadX(d1, across) - meter(d1) * half, depthY(d1));
+    ctx.lineTo(roadX(d1, across) + meter(d1) * half, depthY(d1));
+    for (let i = i1 - 1; i >= i0; i--) ctx.lineTo(roadX(samples[i], across) + meter(samples[i]) * half, depthY(samples[i]));
+    ctx.lineTo(roadX(d0, across) + meter(d0) * half, depthY(d0));
+    ctx.closePath();
+    ctx.fillStyle = fill;
+    ctx.fill();
+  };
+
+  // přechody se vytvoří jednou po změně velikosti, ne v každém snímku
+  let GR = {};
+  const grad = (key, make) => GR[key] || (GR[key] = make());
+  const radial = (r, stops) => {
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+    stops.forEach(([at, color]) => g.addColorStop(at, color));
+    return g;
+  };
+  const linear = (y0, y1, stops) => {
+    const g = ctx.createLinearGradient(0, y0, 0, y1);
+    stops.forEach(([at, color]) => g.addColorStop(at, color));
+    return g;
+  };
+
   const drawWorld = (t, dt, speed, lights) => {
     const vx = W / 2 + bend(0);
     const dVis = clamp((Math.max(G.dashY + G.drop, G.beltAt(0)) + H * 0.04 - hz) / (H - hz), 0.08, 1.1);
-    const vis = samples.filter((d) => d <= dVis);
+    let nVis = 0;
+    while (nVis < samples.length && samples[nVis] <= dVis) nVis++;
 
-    // obloha a záře nad obzorem
-    let g = ctx.createLinearGradient(0, 0, 0, hz);
-    g.addColorStop(0, '#08090C');
-    g.addColorStop(0.55, '#0D0D10');
-    g.addColorStop(1, '#261811');
-    ctx.fillStyle = g;
-    ctx.fillRect(-W * 0.2, -H * 0.2, W * 1.4, hz + H * 0.2 + 1);
-    g = ctx.createRadialGradient(vx, hz, 0, vx, hz, Math.max(W, H) * 0.62);
-    g.addColorStop(0, 'rgba(255, 170, 110, 0.32)');
-    g.addColorStop(0.16, 'rgba(230, 120, 50, 0.12)');
-    g.addColorStop(0.45, 'rgba(230, 120, 50, 0.03)');
-    g.addColorStop(1, 'rgba(230, 120, 50, 0)');
-    ctx.fillStyle = g;
-    ctx.fillRect(-W * 0.2, -H * 0.2, W * 1.4, H * 1.4);
+    // obloha a záře zapadajícího slunce nad obzorem
+    ctx.drawImage(skyLayer, SKY.x + curve * W * 0.03, SKY.y, SKY.w, SKY.h);
+    ctx.save();
+    ctx.translate(vx, hz);
+    ctx.fillStyle = grad('glow', () => radial(Math.max(W, H) * 0.62, [
+      [0, 'rgba(255, 170, 110, 0.34)'], [0.16, 'rgba(230, 120, 50, 0.12)'], [0.45, 'rgba(230, 120, 50, 0.03)'], [1, 'rgba(230, 120, 50, 0)'],
+    ]));
+    ctx.fillRect(-W * 0.2 - vx, -H * 0.2 - hz, W * 1.4, H * 1.4);
+    ctx.restore();
 
-    hills(hz * 0.12, 0.0036, 1.3, 'rgba(20, 16, 15, 0.96)', 0.1);
-    hills(hz * 0.065, 0.0082, 4.2, '#0E0B09', 0.2);
+    // kopce do dálky, čím dál, tím světlejší v oparu
+    ridge(hz * 0.16, 0.0028, 1.3, 0.05, 'rgba(66, 40, 31, 0.78)');
+    ridge(hz * 0.105, 0.0047, 4.2, 0.1, '#241815');
+    ridge(hz * 0.055, 0.0075, 7.7, 0.16, '#141011');
 
-    g = ctx.createLinearGradient(0, hz, 0, H);
-    g.addColorStop(0, '#121010');
-    g.addColorStop(1, '#070708');
-    ctx.fillStyle = g;
+    ctx.fillStyle = grad('ground', () => linear(hz, H, [[0, '#141011'], [1, '#070708']]));
     ctx.fillRect(-W * 0.2, hz, W * 1.4, H * 1.2);
-    g = ctx.createLinearGradient(0, 0, W, 0);
-    const sx = clamp(vx / W, 0.1, 0.9);
-    g.addColorStop(0, 'rgba(255, 150, 60, 0)');
-    g.addColorStop(sx, 'rgba(255, 205, 160, 0.45)');
-    g.addColorStop(1, 'rgba(255, 150, 60, 0)');
-    ctx.fillStyle = g;
-    ctx.fillRect(-W * 0.2, hz - 0.75, W * 1.4, 1.5);
+
+    // opar přes obzor, aby kopce a pole plynule splynuly
+    const hr = W * 0.8;
+    ctx.save();
+    ctx.translate(vx, hz);
+    ctx.scale(1, (hz * 0.08) / hr);
+    ctx.fillStyle = grad('haze', () => radial(hr, [[0, 'rgba(255, 160, 110, 0.16)'], [0.5, 'rgba(230, 120, 70, 0.05)'], [1, 'rgba(230, 120, 70, 0)']]));
+    ctx.fillRect(-hr, -hr, hr * 2, hr * 2);
+    ctx.restore();
 
     // pole kolem silnice
     const fShift = travel % 5;
+    ctx.fillStyle = 'rgb(255, 235, 215)';
     for (let k = 0; k < 30; k++) {
       const z = k * 5 - fShift;
       if (z < 0) continue;
@@ -706,45 +765,47 @@
       if (d > dVis) continue;
       const y = depthY(d);
       const h = Math.max(1, d * 2);
-      ctx.fillStyle = `rgba(255, 235, 215, ${0.035 * d})`;
+      ctx.globalAlpha = 0.035 * d;
       ctx.fillRect(-W * 0.2, y, Math.max(0, roadX(d, -1.45) + W * 0.2), h);
       ctx.fillRect(roadX(d, 1.45), y, W * 1.4, h);
     }
+    ctx.globalAlpha = 1;
+
+    // štěrková krajnice
+    band(-1.1, 0.12, 0.004, dVis, 'rgba(92, 76, 62, 0.16)');
+    band(1.1, 0.12, 0.004, dVis, 'rgba(92, 76, 62, 0.16)');
 
     // asfalt
     ctx.beginPath();
-    vis.forEach((d, i) => (i ? ctx.lineTo(roadX(d, -1), depthY(d)) : ctx.moveTo(roadX(d, -1), depthY(d))));
-    for (let i = vis.length - 1; i >= 0; i--) ctx.lineTo(roadX(vis[i], 1), depthY(vis[i]));
+    for (let i = 0; i < nVis; i++) {
+      const d = samples[i];
+      if (i) ctx.lineTo(roadX(d, -1), depthY(d));
+      else ctx.moveTo(roadX(d, -1), depthY(d));
+    }
+    for (let i = nVis - 1; i >= 0; i--) ctx.lineTo(roadX(samples[i], 1), depthY(samples[i]));
     ctx.closePath();
-    g = ctx.createLinearGradient(0, hz, 0, H);
-    g.addColorStop(0, '#2C221B');
-    g.addColorStop(0.06, '#191614');
-    g.addColorStop(1, '#0E0E0F');
-    ctx.fillStyle = g;
+    ctx.fillStyle = grad('asphalt', () => linear(hz, H, [[0, '#2C221B'], [0.06, '#191614'], [1, '#0E0E0F']]));
     ctx.fill();
 
     // světla našeho auta
     if (lights > 0) {
       const bd = clamp((G.dashY - hz) / (H - hz), 0.05, 0.6) * 0.85;
-      const bx = roadX(bd, SEAT + 0.12);
-      const by = depthY(bd);
       const rx = meter(bd) * G.lane * 1.2;
-      const ry = Math.max(10, (by - hz) * 0.75);
+      const ry = Math.max(10, (depthY(bd) - hz) * 0.75);
+      const beam = () => radial(rx, [[0, 'rgba(255, 240, 215, ' + (0.13 * lights) + ')'], [1, 'rgba(255, 240, 215, 0)']]);
       ctx.save();
-      ctx.translate(bx, by);
+      ctx.translate(roadX(bd, SEAT + 0.12), depthY(bd));
       ctx.scale(1, ry / rx);
-      g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
-      g.addColorStop(0, `rgba(255, 240, 215, ${0.13 * lights})`);
-      g.addColorStop(1, 'rgba(255, 240, 215, 0)');
-      ctx.fillStyle = g;
+      ctx.fillStyle = lights >= 1 ? grad('beam', beam) : beam();
       ctx.fillRect(-rx, -rx, rx * 2, rx * 2);
       ctx.restore();
     }
     const lit = 0.6 + 0.4 * lights;
 
     // vodorovné značení
-    band(-0.95, 0.02, 0.004, dVis, `rgba(236, 232, 226, ${0.42 * lit})`);
-    band(0.95, 0.02, 0.004, dVis, `rgba(236, 232, 226, ${0.42 * lit})`);
+    ctx.globalAlpha = 0.42 * lit;
+    band(-0.95, 0.02, 0.004, dVis, 'rgb(236, 232, 226)');
+    band(0.95, 0.02, 0.004, dVis, 'rgb(236, 232, 226)');
     const period = 7;
     const dashLen = 3 + Math.min(2.2, boost * 0.45);
     const shift = travel % period;
@@ -756,7 +817,8 @@
       const d1 = dOf(z1);
       if (d1 < 0.006) break;
       if (d1 > dVis) continue;
-      band(0, 0.024, d1, Math.min(d0, dVis), `rgba(240, 236, 230, ${Math.min(0.85, 0.25 + d0) * lit})`);
+      ctx.globalAlpha = Math.min(0.85, 0.25 + d0) * lit;
+      band(0, 0.024, d1, Math.min(d0, dVis), 'rgb(240, 236, 230)');
     }
 
     // směrové sloupky
@@ -771,16 +833,20 @@
       const h = m * 0.36;
       const w = Math.max(1, m * 0.028);
       const a = Math.min(1, (d - 0.03) * 5);
-      [-1, 1].forEach((side) => {
+      for (let side = -1; side <= 1; side += 2) {
         const x = roadX(d, side * 1.18);
-        ctx.fillStyle = `rgba(222, 216, 208, ${0.6 * a * lit})`;
+        ctx.globalAlpha = 0.6 * a * lit;
+        ctx.fillStyle = 'rgb(222, 216, 208)';
         ctx.fillRect(x - w / 2, y - h, w, h);
-        ctx.fillStyle = `rgba(12, 12, 13, ${a})`;
+        ctx.globalAlpha = a;
+        ctx.fillStyle = 'rgb(12, 12, 13)';
         ctx.fillRect(x - w / 2, y - h * 0.8, w, h * 0.12);
-        ctx.fillStyle = side < 0 ? `rgba(235, 235, 235, ${0.8 * a})` : `rgba(230, 110, 30, ${0.85 * a})`;
+        ctx.globalAlpha = (side < 0 ? 0.8 : 0.85) * a;
+        ctx.fillStyle = side < 0 ? 'rgb(235, 235, 235)' : 'rgb(230, 110, 30)';
         ctx.fillRect(x - w * 0.32, y - h * 0.62, w * 0.64, h * 0.1);
-      });
+      }
     }
+    ctx.globalAlpha = 1;
 
     // dopravní značky vpravo u silnice
     if (!reduceMotion && loadedAt) {
@@ -833,10 +899,7 @@
     ctx.save();
     ctx.translate(s.x, s.y);
     ctx.scale(1, s.ry / s.rx);
-    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, s.rx);
-    g.addColorStop(0, 'rgba(6, 6, 8, 0.45)');
-    g.addColorStop(1, 'rgba(6, 6, 8, 0)');
-    ctx.fillStyle = g;
+    ctx.fillStyle = grad('shade', () => radial(s.rx, [[0, 'rgba(6, 6, 8, 0.45)'], [1, 'rgba(6, 6, 8, 0)']]));
     ctx.fillRect(-s.rx, -s.rx, s.rx * 2, s.rx * 2);
     ctx.restore();
   };
@@ -1067,11 +1130,14 @@
     if (!r.width || !r.height) return;
     W = r.width;
     H = r.height;
-    dpr = clamp(Math.min(window.devicePixelRatio || 1, Math.sqrt(3.4e6 / (W * H))), 1, 1.75);
+    // strop počtu pixelů drží snímek levný i na retina displejích
+    dpr = clamp(Math.min(window.devicePixelRatio || 1, Math.sqrt(2.6e6 / (W * H))), 1, 1.6);
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    GR = {};
     layout();
+    paintSky();
     paintFrame();
     paintDash();
     paintWheel();

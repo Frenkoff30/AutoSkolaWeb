@@ -164,6 +164,8 @@ def main() -> None:
             .replace("{{head_extra}}", meta.get("head_extra", ""))
         )
         out = version_assets(render_tokens(out))
+        # obrázky se dekódují mimo hlavní vlákno, aby nezasekly scroll
+        out = re.sub(r"<img(?![^>]*\bdecoding=)", '<img decoding="async"', out)
 
         leftovers = re.findall(r"\{\{[^}]+\}\}", out)
         if leftovers:

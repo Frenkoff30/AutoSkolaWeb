@@ -142,12 +142,16 @@
   /* ---------- Plynulá změna barev sekcí ---------- */
   const toned = $$('[data-tone]');
   if ('IntersectionObserver' in window && toned.length) {
+    // prolínání barev běží jen v sekcích u obrazovky, ostatní se přepnou naráz a nikdo to nevidí
+    const liveIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('tone-live', entry.isIntersecting));
+    }, { rootMargin: '20% 0px' });
     const themeIO = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) body.dataset.theme = entry.target.dataset.tone;
       });
     }, { rootMargin: '-46% 0px -53% 0px' });
-    toned.forEach((s) => themeIO.observe(s));
+    toned.forEach((s) => { liveIO.observe(s); themeIO.observe(s); });
   }
 
   /* ---------- Rozdělení textu na slova ---------- */
@@ -207,9 +211,13 @@
 
   function update() {
     ticking = false;
+    // nejdřív všechna měření, pak zápisy, jinak prohlížeč přepočítává layout několikrát za snímek
     const y = window.scrollY;
     const vh = window.innerHeight;
     const max = Math.max(1, doc.scrollHeight - vh);
+    const trackRect = track ? track.getBoundingClientRect() : null;
+    const wordRects = wordBlocks.map((b) => b.el.getBoundingClientRect());
+    const footerTop = footer ? footer.getBoundingClientRect().top : 0;
 
     if (progress) progress.style.transform = `scaleX(${clamp(y / max, 0, 1)})`;
 
@@ -247,7 +255,7 @@
 
     // cesta
     if (track) {
-      const r = track.getBoundingClientRect();
+      const r = trackRect;
       const p = verticalTrack.matches
         ? clamp((vh * 0.62 - r.top) / r.height, 0, 1)
         : clamp((vh * 0.88 - r.top) / (vh * 0.62), 0, 1);
@@ -256,8 +264,8 @@
     }
 
     // slova
-    wordBlocks.forEach((b) => {
-      const r = b.el.getBoundingClientRect();
+    wordBlocks.forEach((b, i) => {
+      const r = wordRects[i];
       if (r.bottom < 0 || r.top > vh) return;
       const p = clamp((vh * 0.88 - r.top) / (r.height + vh * 0.3), 0, 1);
       const count = Math.round(p * b.words.length * 1.08);
@@ -267,10 +275,7 @@
     });
 
     // patička
-    if (footer) {
-      const fr = footer.getBoundingClientRect();
-      if (fab) fab.classList.toggle('is-visible', y > vh * 0.8 && fr.top > vh * 0.9);
-    }
+    if (footer && fab) fab.classList.toggle('is-visible', y > vh * 0.8 && footerTop > vh * 0.9);
   }
 
   function schedule() {
